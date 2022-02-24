@@ -1,7 +1,14 @@
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import { ThemeProvider } from "@mui/material/styles";
 import { MaterialTheme } from "../config/MaterialTheme";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import NavBar from "../components/Header/NavBar";
+import Header from "../components/Header/Header";
+import Logo from "../components/Header/Logo";
+import Footer from "../components/Footer/Footer";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -33,9 +40,21 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" href="/apple-icon.png"></link>
         <meta name="theme-color" content="#317EFB" />
       </Head>
-    <ThemeProvider theme={MaterialTheme}>
-      <Component {...pageProps} />
-    </ThemeProvider>
+      <ThemeProvider theme={MaterialTheme}>
+        <CssBaseline />
+        <Container
+          maxWidth="lg"
+          sx={{
+            backgroundColor: (theme) => theme.global.lightGray,
+          }}
+        >
+          <Box>
+            <Header logo={<Logo />} nav={<NavBar />} />
+            <Component {...pageProps} />
+            <Footer />
+          </Box>
+        </Container>
+      </ThemeProvider>
     </>
   );
 }
